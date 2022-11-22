@@ -1,0 +1,84 @@
+# coding=utf-8
+"""
+帖子常量
+"""
+from cores.const.const_base import *
+
+
+# ---------- post 相关 -------------
+# 帖子类型
+POST_TYPE_NORMAL = 1
+POST_TYPE_ARTICLE = 2
+
+# 帖子类型信息
+POST_TYPE_DICT = {
+    POST_TYPE_NORMAL: '图文贴',
+    POST_TYPE_ARTICLE: '长文贴',
+}
+
+# 所有帖子类型
+ALL_VALID_POST_TYPES = tuple(POST_TYPE_DICT.keys())
+
+# 每页展示数目
+POST_PAGE_PER_NUM = 10
+POST_PAGE_PER_NUM_MAX = 200
+
+# 帖子状态
+POST_STATUS_SELF_DELETE = -30     # 自己删除
+POST_STATUS_INVISIBLE = -20     # 不可见
+POST_STATUS_SELF = -10          # 自己可见
+POST_STATUS_VISIBLE = 10        # 可见
+POST_STATUS_REC = 20            # 推荐
+
+# 帖子状态信息
+POST_STATUS_DICT = {
+    POST_STATUS_REC: '推荐',
+    POST_STATUS_VISIBLE: '可见',
+    POST_STATUS_SELF: '自己可见',
+    POST_STATUS_INVISIBLE: '不可见',
+    POST_STATUS_SELF_DELETE: '自己删除',
+}
+
+# 所有帖子状态
+ALL_VALID_POST_STATUS = tuple(POST_STATUS_DICT.keys())
+
+# 所有可见状态
+ALL_VISIBLE_STATUS = (POST_STATUS_VISIBLE, POST_STATUS_REC)
+
+# 帖子文案最长限制
+POST_TEXT_MAX_LEN = 10000
+
+# 帖子查询排序
+POST_QUERY_SORT_T_NEW = 1  # 最新
+POST_QUERY_SORT_T_HOT = 2  # 最热
+
+# 帖子来源
+POST_SOURCE_TYPE_USER = 'user'                          # 用户
+POST_SOURCE_TYPE_OPERATOR = 'operator'                  # 运营
+
+# 帖子来源信息
+POST_SOURCE_TYPE_DICT = {
+    POST_SOURCE_TYPE_USER: '用户',
+    POST_SOURCE_TYPE_OPERATOR: '运营',
+}
+
+# 所有帖子来源
+ALL_SPIDER_POST_SOURCE = tuple(POST_SOURCE_TYPE_DICT.keys())
+
+# 长文内容类型
+POST_ARTICLE_TYPE_TEXT = 10
+POST_ARTICLE_TYPE_TEXT_TITLE = 15
+POST_ARTICLE_TYPE_IMAGE = IMAGE_TYPE_NORMAL
+POST_ARTICLE_TYPE_GIF = IMAGE_TYPE_GIF
+POST_ARTICLE_TYPE_GIF_VIDEO = IMAGE_TYPE_GIF_VIDEO
+
+POST_ARTICLE_TYPE_DICT = {
+    POST_ARTICLE_TYPE_TEXT: '文本',
+    POST_ARTICLE_TYPE_TEXT_TITLE: '标题',
+    POST_ARTICLE_TYPE_IMAGE: '图片',
+    POST_ARTICLE_TYPE_GIF: 'GIF',
+    POST_ARTICLE_TYPE_GIF_VIDEO: 'GIF video',
+}
+
+# 发帖评论限制
+POST_FREQUENCY_LIMIT_SEC = 15

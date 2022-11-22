@@ -1,0 +1,47 @@
+# 每个服务器略有不同，仅供参考
+
+upstream community_api {
+   server 127.0.0.1:9801;
+   server 127.0.0.1:9802;
+
+   # keepalive 需要和下边的 proxy_http_version 和 proxy_set_header Connection "" 一并启用
+   # keepalive 16;
+}
+
+map "$request_method $http_x_forwarded_proto://$http_host" $is_get_http_www {
+    default 0;
+    "GET http://www.jerryfun.com" 1;
+    # 可补充多个域名
+    # "GET http://www.jerryfun123.com" 1;
+}
+
+server {
+    listen 80 default_server backlog=512;
+    access_log  /data/log/nginx_api_access.log main;
+    error_log  /data/log/nginx_api_error.log;
+
+    listen 443;
+    ssl on;
+    ssl_certificate /etc/nginx/2021_server.pem;
+    ssl_certificate_key /etc/nginx/2021_server.key;
+
+    if ($is_get_http_www) {
+        return 301 https://$http_host$request_uri;
+    }
+
+    proxy_pass_header Server;
+    proxy_set_header Host $http_host;
+    #proxy_http_version 1.1;
+    #proxy_set_header Connection "";
+    proxy_redirect off;
+    # proxy_set_header X-Real-IP $http_x_forwarded_for;
+    proxy_set_header X-Forwarded-For $http_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
+    proxy_set_header X-Scheme $http_x_forwarded_proto;
+
+    add_header Strict-Transport-Security "max-age=2592000";
+
+    location  / {
+        proxy_pass http://community_api;
+    }
+}
